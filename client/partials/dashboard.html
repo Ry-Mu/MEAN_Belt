@@ -1,0 +1,36 @@
+<div ng-if='!pleaseLogin'>
+  <div class='navbar'>
+    <h3 ng-bind='"Hi, "+(activeUser)'></h3>
+    <ul>
+      <li><span class='fakelink' ng-click=logout()>Logout</span></li>
+    </ul>
+  </div>
+  <a href='#!/new_question'>Add a Question</a>
+  <br>Search: <input type='text' ng-model='search'>
+  <table class="table table-striped">
+    <thead>
+      <th ng-click='order("question.name")'>
+        Question
+        <span ng-if='ordering=="question.name"'>&#x25b4;</span>
+        <span ng-if='ordering=="-question.name"'>&#x25be;</span>
+      </th>
+      <th ng-click='order("question.answers.length")'>
+        Answers
+        <span ng-if='ordering=="question.answers.length"'>&#x25b4;</span>
+        <span ng-if='ordering=="-question.answers.length"'>&#x25be;</span>
+      </th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="question in questions | filter:search | orderBy:ordering track by $index">
+        <td ng-bind="question.name"></td>
+        <td ng-bind="question.answers.length"></td>
+        <td><button ng-click='show(question)' class="btn btn-danger">Show</button> <button ng-click='answer(question)' class="btn btn-info">Answer</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div ng-if='pleaseLogin'>
+  <p>Username Required <span class='fakelink' ng-click='logout()'>create username</span></p>
+</div>

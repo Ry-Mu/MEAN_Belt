@@ -1,0 +1,31 @@
+<div ng-if='!pleaseLogin'>
+  <div class='navbar'>
+    <ul>
+      <li><a href='#!/'>Home</a></li>
+      <li><span class='fakelink' ng-click=logout()>Logout</span></li>
+    </ul>
+  </div>
+  <h1>New Question</h1>
+  <form ng-submit='createQuestion()'>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>Question:</td>
+          <td><textarea ng-model='newQuestion.name'></textarea></td>
+        </tr>
+        <tr>
+          <td>Description<br>(Optional)</td>
+          <td><textarea ng-model='newQuestion.description'></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+    <button ng-click='cancel()' class="btn btn-danger">Cancel</button> <input type='submit' class="btn btn-info">
+  </form>
+  <ul class='errors' ng-repeat='error in errors'>
+    <li ng-bind='error'></li>
+  </ul>
+</div>
+
+<div ng-if='pleaseLogin'>
+  <p>Your login has expired, please <span class='fakelink' ng-click='logout()'>log in again.</span></p>
+</div>

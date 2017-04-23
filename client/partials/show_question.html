@@ -1,0 +1,38 @@
+<div ng-if='!pleaseLogin'>
+  <div class='navbar'>
+    <ul>
+      <li><a href='#!/'>Home</a></li>
+      <li>|</li>
+      <li><a href='#!/question/{{currentQuestion._id}}/new_answer/'>Answer this Question</a></li>
+    </ul>
+  </div>
+  <h1 ng-bind='currentQuestion.name'></h1>
+  <p ng-bind='currentQuestion.description'></p>
+  <table class="table table-striped" ng-if='currentQuestion.answers.length'>
+    <thead>
+    </thead>
+    <tbody>
+      <tr ng-repeat="answer in currentQuestion.answers | orderBy:'answer.likes'">
+        <!-- ordering by answer.___ not working: due to attempting to order an object??? -->
+        <td>
+          <p ng-bind='(answer.username)+":"'></p>
+          <h4 ng-bind='answer.answer'></h4>
+          <p ng-bind='answer.details' ng-if='answer.details'></p>
+        </td>
+        <td>
+          <ng-pluralize count='answer.likes' when="{
+            '1': '1 like',
+            'other': '{} likes'}"></ng-pluralize>
+          <button ng-click='like(answer)' class="btn btn-info">Like!</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ul class='errors' ng-if='errors.length'>
+    <li ng-repeat='error in errors' ng-bind='error'></li>
+  </ul>
+</div>
+
+<div ng-if='pleaseLogin'>
+  <p>Your login has expired, please <span class='fakelink' ng-click='logout()'>log in again.</span></p>
+</div>
